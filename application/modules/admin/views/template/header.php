@@ -27,6 +27,29 @@
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
   <link rel="shortcut icon" href="<?=config_item('img_dir')?>favicon_posyandu.png">
+
+  <!-- jQuery 3 -->
+  <script src="<?=config_item('base_theme')?>bower_components/jquery/dist/jquery.min.js"></script>
+  <!-- Bootstrap 3.3.7 -->
+  <script src="<?=config_item('base_theme')?>bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+  <!-- SlimScroll -->
+  <script src="<?=config_item('base_theme')?>bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+  <!-- FastClick -->
+  <script src="<?=config_item('base_theme')?>bower_components/fastclick/lib/fastclick.js"></script>
+  <!-- AdminLTE App -->
+  <script src="<?=config_item('base_theme')?>dist/js/adminlte.min.js"></script>
+  <!-- AdminLTE for demo purposes -->
+  <script src="<?=config_item('base_theme')?>dist/js/demo.js"></script>
+
+  <!-- DataTables -->
+  <script src="<?=config_item('base_theme')?>bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+  <script src="<?=config_item('base_theme')?>bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
+  <!-- bootstrap datepicker -->
+  <script src="<?=config_item('base_theme')?>bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+
+  <!-- ChartJS -->
+  <script src="<?=config_item('base_theme')?>bower_components/chart.js/Chart.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <!-- Site wrapper -->

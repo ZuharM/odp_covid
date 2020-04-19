@@ -98,7 +98,7 @@
 			</div>
 			<!-- /.box-body -->
 			<div class="box-footer">
-				Aplikasi ODP
+				Aplikasi PCOVID19 memberikan informasi dan resume data klinis pasien. Update data area transmisi secara berkala.
 			</div>
 			<!-- /.box-footer-->
 		</div>

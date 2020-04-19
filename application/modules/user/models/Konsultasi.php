@@ -8,24 +8,6 @@ class Konsultasi extends CI_Model {
 		parent::__construct();
 	}
 
-	public function get_imunitas($where=NULL){
-		if($where != ''){
-			$this->db->where($where);
-		}
-		$this->db->order_by('jawaban_id', 'DESC');
-		$this->db->limit(1);
-		return $this->db->get('jawaban');
-	}
-
-	public function get_soal_indikator($where=NULL){
-		if($where != ''){
-			$this->db->where($where);
-		}
-		$this->db->order_by('a.pertanyaan_id', 'ASC');
-		$this->db->join('indikator b', 'b.id = a.indikator_id', 'join');
-		return $this->db->get('pertanyaan a');
-	} 
-
 	function get_angka_bobot($id){
 		$this->db->select('
 			b.*
@@ -46,20 +28,103 @@ class Konsultasi extends CI_Model {
 		return $query->row()->angka;
 	}
 
-	/*function get_penyakit(){
+	function get_konsultasi_detail($uuid){
 		$this->db->select('
-			penyakit.*
+			kd.pertanyaanid,
+			kd.bobot_jawab_id
 		');
-		$this->db->from('penyakit');
-		if($id != ""){
-			$this->db->where('bumil.id', $id);
+		$this->db->from('konsultasi_detail kd');
+		$this->db->where('kd.uuid', $uuid);
+		$this->db->order_by('kd.id', 'ASC');
+		$this->db->limit(1);
+		$query = $this->db->get();
+		return $query->row_array();
+	}
+
+	function get_pertanyaan($where = "", $id = ""){
+		$this->db->select('
+			p.*
+		');
+		$this->db->from('pertanyaan p');
+		if($where != ""){
+			$this->db->where('p.id', $where);
 		}
-		$this->db->where('bumil.userid', $this->userid);
-		$this->db->order_by('bumil.created', 'DESC');
+		if($id != ""){
+			$this->db->where_not_in('p.indikatorid', $id);
+		}
+
+		$this->db->order_by('p.id', 'ASC');
 
 		$query = $this->db->get();
 		if($query->num_rows() > 0){
-			if($id == ""){
+			$result = $query->result_array();
+			$arr_result = array();
+			foreach ($result as $key => $val) {
+				$arr_result[$key] = $val;
+				$arr_result[$key]['bobot'] = $this->get_bobot($val['pil_jawaban']);
+			}
+			return $arr_result;
+		} else {
+			return NULL;
+		}
+	}
+
+	/*function get_bobot($where_in = ""){
+		$this->db->select('
+			bobot.*
+		');
+		$this->db->from('bobot');
+		if($where_in != ""){
+			$this->db->where('bobot.id IN ('.$where_in.')');
+		}
+		$this->db->order_by('bobot.id', 'ASC');
+
+		$query = $this->db->get();
+		if($query->num_rows() > 0){
+			return $query->result_array();
+		} else {
+			return NULL;
+		}
+	}*/
+
+	function get_bobot($where_in = "", $id = ""){
+		$this->db->select('
+			bobot.*
+		');
+		$this->db->from('bobot');
+		if($where_in != ""){
+			$this->db->where('bobot.id IN ('.$where_in.')');
+		}
+		if($id != ""){
+			$this->db->where('bobot.id', $id);
+		}
+
+		$this->db->order_by('bobot.id', 'ASC');
+
+		$query = $this->db->get();
+		if($query->num_rows() > 0){
+			if($id != ""){
+				return $query->row_array();
+			}
+			return $query->result_array();
+		} else {
+			return NULL;
+		}
+	}
+
+	function get_indikator($id = ""){
+		$this->db->select('
+			i.*
+		');
+		$this->db->from('indikator i');
+		if($id != ""){
+			$this->db->where('i.id', $id);
+		}
+		$this->db->order_by('i.id', 'ASC');
+
+		$query = $this->db->get();
+		if($query->num_rows() > 0){
+			if($id != ""){
 				return $query->result_array();
 			} else {
 				return $query->row_array();
@@ -67,7 +132,27 @@ class Konsultasi extends CI_Model {
 		} else {
 			return NULL;
 		}
-	}*/
+	}
+
+	function get_rekapitulasi($uuid, $konsultasi_ke){
+		$this->db->select('
+			kd.id, 
+			kd.cf_combine,
+			kd.konsultasi_ke
+		');
+		$this->db->from('konsultasi_detail kd');
+		$this->db->where('kd.uuid', $uuid);
+		$this->db->where('kd.konsultasi_ke', $konsultasi_ke);
+		$this->db->order_by('kd.id', 'DESC');
+		$this->db->limit(1);
+
+		$query = $this->db->get();
+		if($query->num_rows() > 0){
+			return $query->row_array();
+		} else {
+			return NULL;
+		}
+	}
 
 	/*function get_bumil_detail($bumilid){
 		$this->db->select('

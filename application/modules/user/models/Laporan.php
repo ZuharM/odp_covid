@@ -2,13 +2,13 @@
 if(!defined('BASEPATH'))
 	exit('No direct script access allowed');
 
-class Laporan extends CI_Model {
+class laporan extends CI_Model {
 
 	function __construct() {
 		parent::__construct();
 	}
 
-	function get_konsultasi($uuid = ""){
+	function get_data($id = ""){
 		$this->db->select('
 			k.*,
 			user.nama as nama_user,
@@ -19,39 +19,19 @@ class Laporan extends CI_Model {
 		');
 		$this->db->from('konsultasi k');
 		$this->db->join('user', 'user.id = k.userid', 'left');
-		if($uuid != ""){
-			$this->db->where('k.uuid', $uuid);
+		if($id != ""){
+			$this->db->where('k.id', $id);
 		}
-
+		$this->db->where('k.userid', $this->userid);
 		$this->db->order_by('k.created', 'DESC');
 
 		$query = $this->db->get();
 		if($query->num_rows() > 0){
-			if($uuid == ""){
+			if($id == ""){
 				return $query->result_array();
 			} else {
 				return $query->row_array();
 			}
-		} else {
-			return NULL;
-		}
-	}
-
-	function get_rekapitulasi($uuid, $konsultasi_ke){
-		$this->db->select('
-			kd.id, 
-			kd.cf_combine,
-			kd.konsultasi_ke
-		');
-		$this->db->from('konsultasi_detail kd');
-		$this->db->where('kd.uuid', $uuid);
-		$this->db->where('kd.konsultasi_ke', $konsultasi_ke);
-		$this->db->order_by('kd.id', 'DESC');
-		$this->db->limit(1);
-
-		$query = $this->db->get();
-		if($query->num_rows() > 0){
-			return $query->row_array();
 		} else {
 			return NULL;
 		}

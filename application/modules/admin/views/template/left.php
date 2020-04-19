@@ -13,7 +13,10 @@
     </form>
     <!-- /.search form -->
     <!-- sidebar menu: : style can be found in sidebar.less -->
-    <?php $uri = $this->uri->segment(2); ?>
+    <?php 
+    $uri = $this->uri->segment(2); 
+    $uri3 = $this->uri->segment(3); 
+    ?>
     <ul class="sidebar-menu" data-widget="tree">
       <li class="header">MAIN NAVIGATION</li>
       <li <?= $uri == '' ? 'class="active"' : ''; ?>>
@@ -29,6 +32,18 @@
         <ul class="treeview-menu">
           <li><a href="#"><i class="fa fa-circle-o"></i> Bobot </a></li>
           <li><a href="#"><i class="fa fa-circle-o"></i> Indikator </a></li>
+        </ul>
+      </li>
+      <li class="treeview <?= $uri == 'area_transmisis' ? 'active' : ''; ?>">
+        <a href="#">
+          <i class="fa fa-university"></i> <span>Area Transmisi</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li <?= $uri == 'area_transmisis' && ($uri3 == '' || $uri3 == 'index') ? 'class="active"' : ''; ?>><a href="<?= base_url('admin/area_transmisis'); ?>"><i class="fa fa-circle-o"></i> Wilayah </a></li>
+          <li <?= $uri == 'area_transmisis' && $uri3 == 'detail' ? 'class="active"' : ''; ?>><a href="<?= base_url('admin/area_transmisis/detail'); ?>"><i class="fa fa-circle-o"></i> Wilayah Detail </a></li>
         </ul>
       </li>
       <li <?= $uri == '' ? 'class="active"' : ''; ?>>

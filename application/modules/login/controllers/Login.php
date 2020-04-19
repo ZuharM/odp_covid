@@ -48,6 +48,7 @@ class Login extends CI_Controller {
 			'agama'			=> $agama,
 			'status_kawin'	=> $status_kawin,
 			'pekerjaan'		=> $pekerjaan,
+			'nik'			=> $nik,
 			'tempat_lahir'	=> $tempat_lahir,
 			'tanggal_lahir'	=> $tanggal_lahir,
 			'uuid'			=> UUID::v5(mt_rand(0, 0xffff).microtime().time()),

@@ -8,17 +8,16 @@ class Umum extends CI_Model {
 		parent::__construct();
 	}
 
-	public function get_jadwal($type)
-	{
-		$query = $this->db->query('
-			select bd.*,
-			(select b.userid from '.$type.' b where b.id = bd.'.$type.'id) as userid,
-			(select n.created from notifikasi n where n.detailid = bd.id AND n.table = "'.$type.'_detail" order by n.created DESC limit 1) as tanggal_notifikasi
-			from '.$type.'_detail bd
-			group by bd.'.$type.'id DESC
-			order by bd.tanggal DESC
+	function get_wilayahdetail($wilayahid){
+		$this->db->select('
+			wd.*
 		');
+ 		$this->db->from('wilayah_detail wd');
+		$this->db->where('wd.wilayahid', $wilayahid);
 
+		$this->db->order_by('wd.id', 'ASC');
+
+		$query = $this->db->get();
 		if($query->num_rows() > 0){
 			return $query->result_array();
 		} else {

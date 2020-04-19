@@ -25,4 +25,25 @@ if (!function_exists('dropdown_bobot')) {
 	}
 }
 
+if (!function_exists('dropdown_wilayah')) {
+	function dropdown_wilayah(){
+		$CI = &get_instance();
+		$CI->load->database();
+		## Menampilkan data kategori
+		$CI->db->select('*');
+		$CI->db->from('wilayah');
+		$CI->db->order_by('id', 'asc');
+		
+		$hasil = $CI->db->get();
+
+		$arr_data[''] = "== Pilih Wilayah ==";
+		if($hasil->num_rows()>0) {
+			foreach($hasil->result_array() as $key => $val){
+				$arr_data[$val['id']] = $val['nama'];
+			}
+		}
+		return ($arr_data);
+	}
+}
+
 ?>

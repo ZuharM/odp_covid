@@ -6,12 +6,12 @@ class Laporans extends E_User {
 	public function __construct()
 	{
 	    parent::__construct();
-	    //$this->load->model('laporan');
+	    $this->load->model('laporan');
 	}
 
 	public function index()
 	{
-		$data['result'] = $this->global_model->get('konsultasi', '*', array('userid' => $this->userid));
+		$data['result'] = $this->laporan->get_data();
 
 		$this->template('laporan', $data);
 	}

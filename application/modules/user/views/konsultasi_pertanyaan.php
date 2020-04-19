@@ -25,16 +25,21 @@
 				</div>
 			</div>
 			<div class="box-body">
-				<form class="form-horizontal" action="<?=site_url('user/konsultasis/proses_pertanyaan'); ?>" method="post">
+				<form action="<?=site_url('user/konsultasis/proses_pertanyaan'); ?>" method="post">
 					<input type="hidden" name="uuid" value="<?= $uuid; ?>">
 					<div class="box-body">
-						<?php foreach ($indikator as $key => $val) { ?>
+						<?php foreach ($indikator as $key => $val) { 
+							$no = $key + 1; ?>
 							<div class="form-group">
-								<label for="" class="col-sm-7 control-label">Apakah anda mengalami gejala <?= $val['nama']; ?> ?</label>
-								<div class="col-sm-5">
-									<input type="hidden" class="form-control" name="indikatorid[]" value="<?= $val['id']; ?>">
-									<?= form_dropdown('bobotid[]', $bobot, '', 'class="form-control" required'); ?>
-								</div>
+								<label for=""><?= $no.'. '.$val['pertanyaan_konten']; ?></label>
+								<input type="hidden" name="indikatorid[]" value="<?= $val['indikatorid']; ?>">
+								<?php foreach ($val['bobot'] as $keys => $vals) { ?>
+									<div class="radio">
+										<label>
+											<input type="radio" name="jawaban_<?= $val['indikatorid'] ?>" id="jawaban_<?= $val['indikatorid'] ?>" value="<?= $vals['id'] ?>" required> <?= $vals['nama'] ?>
+										</label>
+									</div>
+								<?php } ?>
 							</div>
 						<?php } ?>
 					</div>

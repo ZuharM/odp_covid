@@ -20,7 +20,7 @@
         <a href="<?= base_url('user'); ?>"><i class="fa fa-dashboard"></i> <span>Beranda</span></a>
       </li>
       <li <?= $uri == 'konsultasis' ? 'class="active"' : ''; ?>>
-        <a href="<?= base_url('user/konsultasis/soal'); ?>"><i class="fa fa-television"></i> <span>Konsultasi</span></a>
+        <a href="<?= base_url('user/konsultasis'); ?>"><i class="fa fa-television"></i> <span>Konsultasi</span></a>
       </li>
       <li <?= $uri == 'laporans' ? 'class="active"' : ''; ?>>
         <a href="<?= base_url('user/laporans'); ?>"><i class="fa fa-book"></i> <span>Laporan</span></a>

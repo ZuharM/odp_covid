@@ -22,9 +22,12 @@
 						<thead>
 							<tr>
 								<th width="5%">No</th>
-								<th width="35%">Nama</th>
-								<th width="25%">Riwayat Penyakit</th>
-								<th width="20%">Tanggal Konsultasi</th>
+								<th>Nama</th>
+								<th>NIK</th>
+								<th>Umur</th>
+								<th>Daerah Terakhir dikunjungi</th>
+								<th>Riwayat Penyakit</th>
+								<th>Status</th>
 								<th width="15%">Actions</th>
 							</tr>
 						</thead>
@@ -35,14 +38,13 @@
 									<tr>
 										<td><?= $key + 1; ?></td>
 										<td><?= $val['nama_user']; ?></td>
+										<td><?= $val['nik']; ?></td>
+										<td>49 th</td>
+										<td><?= $val['nama_wilayah'].' - '.$val['nama_wilayah_detail']; ?></td>
+										<td><?= $val['penyakit']; ?></td>
+										<td><?= $val['persentase'].'%'; ?></td>
 										<td>
-											<?= $val['penyakit']; ?>
-										</td>
-										<td>
-											<?= $val['created']; ?>
-										</td>
-										<td>
-											<a href="<?= site_url('admin/view/'.$val['uuid']); ?>" class="btn btn-info btn-xs"><span class="fa fa-bars"></span> Detail</a>
+											<a href="<?= site_url('admin/laporans/view/'.$val['uuid']); ?>" class="btn btn-info btn-xs"><span class="fa fa-bars"></span> Detail</a>
 										</td>
 									</tr>
 								<?php } 
@@ -55,7 +57,7 @@
 		</div>
 		<!-- /.box-body -->
 		<div class="box-footer">
-			Informasi seluruh Daftar Balita Anda.
+			Informasi seluruh data.
 		</div>
 	</div>
 	<!-- /.box -->
